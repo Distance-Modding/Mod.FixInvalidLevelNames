@@ -39,10 +39,6 @@ namespace Distance.FixInvalidLevelNames
 		/// <summary>
 		/// Tests if a folder/file name is invalid, and returns why.
 		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="maxLength"></param>
-		/// <param name="reason"></param>
-		/// <returns></returns>
 		public static bool IsInvalidName(string name, int? maxLength, out InvalidReason reason)
 		{
 			reason = InvalidReason.Valid;
@@ -83,36 +79,8 @@ namespace Distance.FixInvalidLevelNames
 
 		public static string SanitizeLeaderboardsFolderForLevel(string levelFolderName, string absoluteLevelPath)
 		{
-			bool sanitized = false;
-
-			if (Sanitizer.IsInvalidName(levelFolderName, Mod.Instance.Config.MaxLevelNameLength, out InvalidReason reason))
-			{
-				if (reason.HasFlag(InvalidReason.Reserved))
-				{
-					// It's probably impossible to hit this scenario since the level filename itself couldn't be downloaded.
-					if (Mod.Instance.Config.SanitizeReservedNames)
-					{
-						sanitized = true;
-					}
-				}
-				if (reason.HasFlag(InvalidReason.Trailing))
-				{
-					// This is possible due to level extensions being removed for the folder name.
-					if (Mod.Instance.Config.SanitizeTrailingNames)
-					{
-						sanitized = true;
-					}
-				}
-				if (reason.HasFlag(InvalidReason.TooLong))
-				{
-					if (Mod.Instance.Config.SanitizeLongNames)
-					{
-						sanitized = true;
-					}
-				}
-			}
-
-			if (sanitized)
+			if (Mod.Instance.Config.SanitizeEnabled &&
+				Sanitizer.IsInvalidName(levelFolderName, Mod.Instance.Config.MaxLevelNameLength, out InvalidReason reason))
 			{
 				LevelInfo levelInfo = G.Sys.LevelSets_.GetLevelInfo(absoluteLevelPath);
 				switch (levelInfo.levelType_)

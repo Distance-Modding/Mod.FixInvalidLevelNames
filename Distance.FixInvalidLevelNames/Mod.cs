@@ -87,43 +87,19 @@ namespace Distance.FixInvalidLevelNames
 				"ENABLE THIS FIX",
 				() => Config.SanitizeEnabled,
 				(value) => Config.SanitizeEnabled = value,
-				"Enables sanitization for level names and all options below (affects Workshop Local Leaderboards level folder names only).");
-
-			settingsMenu.CheckBox(MenuDisplayMode.MainMenu,
-				"setting:sanitize_reserved_names",
-				"SANITIZE RESERVED NAMES",
-				() => Config.SanitizeReservedNames,
-				(value) => Config.SanitizeReservedNames = value,
-				"Sanitize level names that are reserved on Windows (i.e. \"[u]CON1[/u]\", \"[u]NUL[/u]\", \"[u]..[/u]\", etc.)." +
-				" Generally, it should be impossible to even download a level with a reserved file name, so its assumed that this setting may not have any use.");
-
-			settingsMenu.CheckBox(MenuDisplayMode.MainMenu,
-				"setting:sanitize_trailing_names",
-				"SANITIZE TRAILING NAMES",
-				() => Config.SanitizeTrailingNames,
-				(value) => Config.SanitizeTrailingNames = value,
-				"Sanitize level names that start or end with spaces or end with periods (i.e. \"[u]ma_ancient future [/u]\")." +
-				" File names with this invalid pattern won't cause fatal errors, but will prevent local leaderboard replays from being saved.");
-
-			settingsMenu.CheckBox(MenuDisplayMode.MainMenu,
-				"setting:sanitize_long_names",
-				"SANITIZE LONG NAMES",
-				() => Config.SanitizeTrailingNames,
-				(value) => Config.SanitizeTrailingNames = value,
-				"Sanitize level names that are too long, as defined by the Max Length option" +
-				" (i.e. \"[u]trackmogrify_framerate crusher (insanely giant bright nightmare ultra tron city laser laser laser laser tron bright marathon transparent tron bright)[/u]\").");
+				"Enables sanitization for level names (affects Workshop Local Leaderboards level folder names only).");
 
 			settingsMenu.IntegerSlider(MenuDisplayMode.MainMenu,
 				"setting:max_level_name_length",
-				"MAX LEVEL NAME LENGTH",
+				"NAME LENGTH THRESHOLD",
 				() => Config.MaxLevelNameLength,
 				(value) => Config.MaxLevelNameLength = value,
 				70,  // 70  leaves room for a Windows username up to 78 characters long.
 				145, // 145 leaves room for a Windows username up to 3 characters long.
 				125, // 125 leaves room for a Windows username up to 23 characters long.
-				"Maximum level file name length (excluding extension) before sanitizing occurs." +
-				" File names that are too long will cause Steam Cloud sync to fail for replay files." +
-				" A maximum length of 125 characters allows room for a Windows username up to about 23 characters long.");
+				"Max name length that doesn't need to be sanitized." +
+				" 125 allows for a Windows username up to about 23 characters long." +
+				"\n[FF0000]WARNING:[-] Sanitized names can't be accessed without this mod, so avoid lowering this too much unless needed.");
 
 			Menus.AddNew(MenuDisplayMode.MainMenu, settingsMenu,
 				Mod.FriendlyName.ToUpper(),

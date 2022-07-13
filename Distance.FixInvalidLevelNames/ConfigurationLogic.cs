@@ -16,27 +16,6 @@ namespace Distance.FixInvalidLevelNames
 			set => Set(SanitizeEnabled_ID, value);
 		}
 
-		private const string SanitizeReservedNames_ID = "config.sanitize_reserved_names";
-		public bool SanitizeReservedNames
-		{
-			get => Get<bool>(SanitizeReservedNames_ID);
-			set => Set(SanitizeReservedNames_ID, value);
-		}
-
-		private const string SanitizeTrailingNames_ID = "config.sanitize_trailing_names";
-		public bool SanitizeTrailingNames
-		{
-			get => Get<bool>(SanitizeTrailingNames_ID);
-			set => Set(SanitizeTrailingNames_ID, value);
-		}
-
-		private const string SanitizeLongNames_ID = "config.sanitize_long_names";
-		public bool SanitizeLongNames
-		{
-			get => Get<bool>(SanitizeLongNames_ID);
-			set => Set(SanitizeLongNames_ID, value);
-		}
-
 		private const string MaxLevelNameLength_ID = "config.max_level_name_length";
 		public int MaxLevelNameLength
 		{
@@ -84,9 +63,6 @@ namespace Distance.FixInvalidLevelNames
 
 			// Assign default settings (if not already assigned).
 			Get(SanitizeEnabled_ID, true);
-			Get(SanitizeReservedNames_ID, true);
-			Get(SanitizeTrailingNames_ID, true);
-			Get(SanitizeLongNames_ID, true);
 			Get(MaxLevelNameLength_ID, 125); // Leaves room for a Windows username that's up to about 23 characters long.
 
 			// Save settings, and any defaults that may have been added.
